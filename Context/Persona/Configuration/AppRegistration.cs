@@ -19,34 +19,6 @@ namespace Persona.Configuration
 {
     public static class AppRegistration
     {
-        private static IServiceCollection AddDataServices(this IServiceCollection services)
-        {
-            services.AddDbContext<PersonaDbContext>();
-            services.AddScoped<IPersonaUnitOfWork, PersonaUnitOfWork>();
-            services.AddScoped<IUnitOfWorkTransaction, PersonaUnitOfWork>();
-            services.AddScoped<IPersonaRepository, PersonaRepository>();
-            services.AddScoped<IPersonaPhotoRepository, PersonaPhotoRepository>();
-
-            return services;
-        }
-
-        private static IServiceCollection AddDomainServices(this IServiceCollection services)
-        {
-            services.AddScoped<IPersonaService, PersonaService>();
-            services.AddScoped<IPersonaPhotoService, PersonaPhotoService>();
-            services.AddScoped<IPersonaValidation, PersonaValidation>();
-            services.AddScoped<IPersonaPhotoValidation, PersonaPhotoValidation>();
-
-            return services;
-        }
-
-        private static IServiceCollection AddInfrastructure(this IServiceCollection services)
-        {
-            services.AddScoped<IPictureInfraService, PictureService>();
-
-            return services;
-        }
-
         public static IServiceCollection AddPersona(this IServiceCollection services)
         {
             var mapper = GetMapper();
@@ -74,6 +46,34 @@ namespace Persona.Configuration
             IMapper mapper = mapperConfig.CreateMapper();
 
             return mapper;
+        }
+
+        private static IServiceCollection AddDataServices(this IServiceCollection services)
+        {
+            services.AddDbContext<PersonaDbContext>();
+            services.AddScoped<IPersonaUnitOfWork, PersonaUnitOfWork>();
+            services.AddScoped<IUnitOfWorkTransaction, PersonaUnitOfWork>();
+            services.AddScoped<IPersonaRepository, PersonaRepository>();
+            services.AddScoped<IPersonaPhotoRepository, PersonaPhotoRepository>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddDomainServices(this IServiceCollection services)
+        {
+            services.AddScoped<IPersonaService, PersonaService>();
+            services.AddScoped<IPersonaPhotoService, PersonaPhotoService>();
+            services.AddScoped<IPersonaValidation, PersonaValidation>();
+            services.AddScoped<IPersonaPhotoValidation, PersonaPhotoValidation>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        {
+            services.AddScoped<IPictureInfraService, PictureService>();
+
+            return services;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Security.Data.Context
 {
     internal class SecureDbContext : IdentityDbContext<ApplicationUser>
     {
-        private const string DB_NAME = "frutasdb";
+        private const string DB_NAME = "identitydb";
         private static bool updateDatabase = true;
 
         private readonly IConfiguration _configuration;
