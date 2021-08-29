@@ -37,7 +37,7 @@ namespace Security.Configuration
                         IdentityServerConstants.StandardScopes.Email,
                         "FruitApi.full_access"
                     },
-                    RedirectUris = {$"http://localhost:4200"},
+                    RedirectUris = {$"http://localhost:4200/shop"},
                     PostLogoutRedirectUris = {$"http://localhost:4200/"},
                     AllowedCorsOrigins = {$"http://localhost:4200"},
                     AllowAccessTokensViaBrowser = true,
