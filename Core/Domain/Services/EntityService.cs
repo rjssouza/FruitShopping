@@ -1,6 +1,8 @@
 using Core.Domain.Entities;
 using Core.Domain.Interfaces.Repositories;
 using Core.Domain.Interfaces.Services;
+using System;
+using System.Collections.Generic;
 
 namespace Core.Domain.Services
 {
@@ -18,6 +20,13 @@ namespace Core.Domain.Services
             var entityRepository = this._unitOfWork.GetRepository<TIEntityRepository>();
 
             entityRepository.Delete(entity);
+        }
+
+        public IEnumerable<TEntity> GetAll(Func<TEntity, bool> predicate = null)
+        {
+            var result = this._unitOfWork.GetRepository<TIEntityRepository>().GetAll(predicate);
+
+            return result;
         }
 
         public TEntity GetById(TKey key)

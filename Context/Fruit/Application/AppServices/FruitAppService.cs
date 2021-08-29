@@ -3,6 +3,7 @@ using Core.Application.AppServices;
 using Core.Domain.Interfaces.Repositories;
 using Fruit.Application.Interfaces.AppServices;
 using Fruit.Application.ViewModels;
+using Fruit.Domain.Entities;
 using Fruit.Domain.Interfaces.Services;
 using System.Collections.Generic;
 
@@ -30,7 +31,9 @@ namespace Fruit.Application.AppServices
 
         public void Register(FruitViewModel fruitViewModel)
         {
-            throw new System.NotImplementedException();
+            var entity = this._mapper.Map<FruitEntity>(fruitViewModel);
+            
+            _fruitService.Insert(entity);
         }
     }
 }

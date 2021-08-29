@@ -1,17 +1,20 @@
 using Core.Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Core.Domain.Interfaces.Services
 {
     public interface IEntityService<TKey, TEntity> : IDisposable
         where TEntity : Entity<TEntity>
     {
-         TEntity GetById(TKey key);
+        void Delete(TEntity entity);
 
-         void Insert(TEntity entity);
+        IEnumerable<TEntity> GetAll(Func<TEntity, bool> predicate = null);
 
-         void Update(TEntity entity);
+        TEntity GetById(TKey key);
 
-         void Delete(TEntity entity);
+        void Insert(TEntity entity);
+
+        void Update(TEntity entity);
     }
 }

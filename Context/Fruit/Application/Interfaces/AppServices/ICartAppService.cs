@@ -6,6 +6,8 @@ namespace Fruit.Application.Interfaces.AppServices
 {
     public interface ICartAppService : IDisposable
     {
+        CartViewModel GetCardViewModel();
+
         CartViewModel AddItemToCart(FruitViewModel fruitViewModel);
 
         void Purchase(Guid sellId);

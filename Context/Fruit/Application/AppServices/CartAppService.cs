@@ -4,18 +4,31 @@ using Core.Domain.Interfaces.Repositories;
 using Fruit.Application.Interfaces.AppServices;
 using Fruit.Application.ViewModels;
 using Fruit.Application.ViewModels.Cart;
+using Fruit.Domain.Interfaces.Services;
 using System;
 
 namespace Fruit.Application.AppServices
 {
-    public class CartAppService : AppServiceTransaction, ICartAppService
+    internal class CartAppService : AppServiceTransaction, ICartAppService
     {
-        public CartAppService(IUnitOfWorkTransaction coreUnitOfWorkTransaction, IMapper mapper)
+        private readonly ICartService _cartService;
+        private readonly IFruitService _fruitService;
+
+        public CartAppService(IUnitOfWorkTransaction coreUnitOfWorkTransaction, IMapper mapper,
+            IFruitService fruitService,
+            ICartService cartService)
             : base(coreUnitOfWorkTransaction, mapper)
         {
+            _fruitService = fruitService;
+            _cartService = cartService;
         }
 
         public CartViewModel AddItemToCart(FruitViewModel fruitViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CartViewModel GetCardViewModel()
         {
             throw new NotImplementedException();
         }
