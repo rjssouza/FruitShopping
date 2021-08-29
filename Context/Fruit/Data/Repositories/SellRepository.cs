@@ -6,7 +6,7 @@ using System;
 
 namespace Fruit.Data.Repositories
 {
-    internal class SellRepository : EntityRepository<Guid, SellEntity, FruitShoppingDbContext>, ISellRepository
+    internal class SellRepository : EntityRepository<Guid, CartEntity, FruitShoppingDbContext>, ISellRepository
     {
         public SellRepository(FruitShoppingDbContext dbContext) : base(dbContext)
         {

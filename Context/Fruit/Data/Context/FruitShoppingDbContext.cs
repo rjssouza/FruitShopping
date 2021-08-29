@@ -16,8 +16,8 @@ namespace Fruit.Data.Context
         public DbSet<FruitEntity> Fruit { get; set; }
         public DbSet<FruitInventoryEntity> FruitInventory { get; set; }
         public DbSet<FruitPictureEntity> FruitPicture { get; set; }
-        public DbSet<SellEntity> Sell { get; set; }
-        public DbSet<SellItemEntity> SellItem { get; set; }
+        public DbSet<CartEntity> Sell { get; set; }
+        public DbSet<CartItemEntity> SellItem { get; set; }
 
         protected override string DbName => "fruitshoppingdb";
     }

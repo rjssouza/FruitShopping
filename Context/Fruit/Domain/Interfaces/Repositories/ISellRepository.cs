@@ -4,7 +4,7 @@ using System;
 
 namespace Fruit.Domain.Interfaces.Repositories
 {
-    internal interface ISellRepository : IEntityRepository<Guid, SellEntity>
+    internal interface ISellRepository : IEntityRepository<Guid, CartEntity>
     {
     }
 }

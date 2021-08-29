@@ -5,13 +5,13 @@ using Fruit.Domain.Interfaces.Validations;
 
 namespace Fruit.Domain.Validations
 {
-    internal class SellValidation : EntityValidation<SellEntity>, ISellValidation
+    internal class CartValidation : EntityValidation<CartEntity>, ICartValidation
     {
-        public SellValidation(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public CartValidation(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
-        public override void ValidateInsert(SellEntity entity)
+        public override void ValidateInsert(CartEntity entity)
         {
             base.ValidateInsert(entity);
             Items_ItemsMustBeInformed(entity);
@@ -21,7 +21,7 @@ namespace Fruit.Domain.Validations
             this.Validate();
         }
 
-        public override void ValidateUpdate(SellEntity entity)
+        public override void ValidateUpdate(CartEntity entity)
         {
             base.ValidateUpdate(entity);
             Items_ItemsMustBeInformed(entity);
@@ -31,15 +31,15 @@ namespace Fruit.Domain.Validations
             this.Validate();
         }
 
-        private void Items_ItemsMustBeInformed(SellEntity entity)
+        private void Items_ItemsMustBeInformed(CartEntity entity)
         {
             var message = "";
 
-            if (entity.SellItems.Count <= 0)
+            if (entity.Items.Count <= 0)
                 this.AddError(message);
         }
 
-        private void Total_TotalMustBeSuperiorThanZero(SellEntity entity)
+        private void Total_TotalMustBeSuperiorThanZero(CartEntity entity)
         {
             var message = "";
 
@@ -47,7 +47,7 @@ namespace Fruit.Domain.Validations
                 this.AddError(message);
         }
 
-        private void UserId_UserIsRequired(SellEntity entity)
+        private void UserId_UserIsRequired(CartEntity entity)
         {
             var message = "";
 

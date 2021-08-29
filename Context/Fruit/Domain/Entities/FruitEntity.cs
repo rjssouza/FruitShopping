@@ -18,7 +18,7 @@ namespace Fruit.Domain.Entities
         public string Name { get; private set; }
         public virtual List<FruitPictureEntity> Pictures { get; private set; }
         public decimal Price { get; private set; }
-        public virtual List<SellItemEntity> SellItems { get; private set; }
+        public virtual List<CartItemEntity> SellItems { get; private set; }
 
         public override void Configure(EntityTypeBuilder<FruitEntity> builder)
         {

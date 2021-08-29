@@ -8,9 +8,9 @@ namespace Fruit.Application.AutoMapper.Sell
     {
         public DomainToViewModelMapping()
         {
-            CreateMap<SellEntity, SellViewModel>()
-                .ForPath(t => t.SellItems, opt => opt.MapFrom(t => t.SellItems));
-            CreateMap<SellItemEntity, SellItemViewModel>();
+            CreateMap<CartEntity, CartViewModel>()
+                .ForPath(t => t.Items, opt => opt.MapFrom(t => t.Items));
+            CreateMap<CartItemEntity, CartItemViewModel>();
         }
     }
 }

@@ -8,9 +8,9 @@ using System;
 
 namespace Fruit.Domain.Services
 {
-    internal class SellService : EntityValidationService<Guid, SellEntity, ISellRepository, ISellValidation>, ISellService
+    internal class CartService : EntityValidationService<Guid, CartEntity, ISellRepository, ICartValidation>, ICartService
     {
-        public SellService(ISellValidation entityValidation, IUnitOfWork unityOfWork) : base(entityValidation, unityOfWork)
+        public CartService(ICartValidation entityValidation, IUnitOfWork unityOfWork) : base(entityValidation, unityOfWork)
         {
         }
     }

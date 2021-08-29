@@ -8,25 +8,25 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace Fruit.Domain.Entities.Sell
 {
-    internal class SellEntity : Entity<SellEntity>
+    internal class CartEntity : Entity<CartEntity>
     {
         public DateTime Date { get; private set; }
-        public virtual List<SellItemEntity> SellItems { get; private set; }
+        public virtual List<CartItemEntity> Items { get; private set; }
         public decimal Total { get; private set; }
         public string UserId { get; private set; }
 
-        public override void Configure(EntityTypeBuilder<SellEntity> builder)
+        public override void Configure(EntityTypeBuilder<CartEntity> builder)
         {
             base.Configure(builder);
-            builder.ToTable("Sell");
+            builder.ToTable("Cart");
 
             builder.Property(t => t.Total).IsRequired();
             builder.Property(t => t.Date).IsRequired();
             builder.Property(t => t.UserId).IsRequired();
 
-            builder.HasMany(t => t.SellItems)
-                   .WithOne(t => t.Sell)
-                   .HasForeignKey(t => t.SellId);
+            builder.HasMany(t => t.Items)
+                   .WithOne(t => t.Cart)
+                   .HasForeignKey(t => t.CartId);
         }
     }
 }

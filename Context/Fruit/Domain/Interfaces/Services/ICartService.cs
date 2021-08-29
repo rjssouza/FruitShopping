@@ -4,7 +4,7 @@ using System;
 
 namespace Fruit.Domain.Interfaces.Services
 {
-    internal interface ISellService : IEntityService<Guid, SellEntity>
+    internal interface ICartService : IEntityService<Guid, CartEntity>
     {
     }
 }

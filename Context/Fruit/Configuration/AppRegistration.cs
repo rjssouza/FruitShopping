@@ -63,7 +63,7 @@ namespace Persona.Configuration
         {
             services.AddTransient<IFruitInventoryService, FruitInventoryService>();
             services.AddTransient<IFruitService, FruitService>();
-            services.AddTransient<ISellService, SellService>();
+            services.AddTransient<ICartService, CartService>();
 
             return services;
         }
@@ -72,7 +72,7 @@ namespace Persona.Configuration
         {
             services.AddTransient<IFruitInventoryValidation, FruitInventoryValidation>();
             services.AddTransient<IFruitValidation, FruitValidation>();
-            services.AddTransient<ISellValidation, SellValidation>();
+            services.AddTransient<ICartValidation, CartValidation>();
 
             return services;
         }

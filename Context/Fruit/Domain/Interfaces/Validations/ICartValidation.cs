@@ -3,7 +3,7 @@ using Fruit.Domain.Entities.Sell;
 
 namespace Fruit.Domain.Interfaces.Validations
 {
-    internal interface ISellValidation : IEntityValidation<SellEntity>
+    internal interface ICartValidation : IEntityValidation<CartEntity>
     {
     }
 }
