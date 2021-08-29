@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from 'src/app/models/product'
+import { Fruit } from 'src/app/models/fruit'
 import { MessengerService } from 'src/app/services/messenger.service'
 import { CartService } from 'src/app/services/cart.service'
-import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-product-item',
@@ -11,14 +10,11 @@ import { WishlistService } from 'src/app/services/wishlist.service';
 })
 export class ProductItemComponent implements OnInit {
 
-  @Input() productItem: Product;
-
-  @Input() addedToWishlist: boolean;
+  @Input() productItem: Fruit;
 
   constructor(
     private msg: MessengerService,
     private cartService: CartService,
-    private wishlistService: WishlistService
   ) { }
 
   ngOnInit() {
@@ -27,18 +23,6 @@ export class ProductItemComponent implements OnInit {
   handleAddToCart() {
     this.cartService.addProductToCart(this.productItem).subscribe(() => {
       this.msg.sendMsg(this.productItem)
-    })
-  }
-
-  handleAddToWishlist() {
-    this.wishlistService.addToWishlist(this.productItem.id).subscribe(() => {
-      this.addedToWishlist = true;
-    })
-  }
-
-  handleRemoveFromWishlist() {
-    this.wishlistService.removeFromWishlist(this.productItem.id).subscribe(() => {
-      this.addedToWishlist = false;
     })
   }
 }

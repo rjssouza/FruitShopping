@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessengerService } from 'src/app/services/messenger.service'
-import { Product } from 'src/app/models/product';
+import { Fruit } from 'src/app/models/fruit';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/models/cart-item';
 
@@ -22,17 +22,17 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.handleSubscription();
-    this.loadCartItems();
+    this.loadViewModel();
   }
 
   handleSubscription() {
-    this.msg.getMsg().subscribe((product: Product) => {
-      this.loadCartItems();
+    this.msg.getMsg().subscribe((product: Fruit) => {
+      this.loadViewModel();
     })
   }
 
-  loadCartItems() {
-    this.cartService.getCartItems().subscribe((items: CartItem[]) => {
+  loadViewModel() {
+    this.cartService.getViewModel().subscribe((items: CartItem[]) => {
       this.cartItems = items;
       this.calcCartTotal();
     })

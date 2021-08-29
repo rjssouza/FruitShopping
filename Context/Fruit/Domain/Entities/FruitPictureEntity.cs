@@ -8,8 +8,8 @@ using System.Runtime.CompilerServices;
 namespace Fruit.Domain.Entities
 {
     internal class FruitPictureEntity : Entity<FruitPictureEntity>
-    {
-        public byte[] Content { get; set; }
+    { 
+        public string PictureUrl { get; set; }
         public virtual FruitEntity Fruit { get; private set; }
         public Guid FruitId { get; set; }
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace Fruit.Domain.Entities
             builder.ToTable("FruitPicture");
 
             builder.Property(t => t.Name).HasMaxLength(150).IsRequired();
-            builder.Property(t => t.Content).IsRequired();
+            builder.Property(t => t.PictureUrl).IsRequired();
             builder.HasOne(t => t.Fruit)
                    .WithMany(item => item.Pictures)
                    .HasForeignKey(item => item.FruitId);

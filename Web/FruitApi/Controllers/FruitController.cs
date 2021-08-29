@@ -1,10 +1,9 @@
 ﻿using Fruit.Application.Interfaces.AppServices;
-using Microsoft.AspNetCore.Authorization;
+using Fruit.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPhoto.Controllers
 {
-    [Authorize]
     [Route("api/fruit")]
     [ApiController]
     public class FruitController : ControllerBase
@@ -17,10 +16,12 @@ namespace ApiPhoto.Controllers
         }
 
         [HttpGet()]
-        [ProducesResponseType(200, Type = typeof(string))]
-        public ActionResult GetPictureUrl()
+        [ProducesResponseType(200, Type = typeof(FruitListViewModel))]
+        public ActionResult Get()
         {
-            return Ok();
+            var fruitListViewModel = _fruitAppService.GetListViewModel();
+
+            return Ok(fruitListViewModel);
         }
     }
 }

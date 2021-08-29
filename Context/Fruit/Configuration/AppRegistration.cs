@@ -28,6 +28,7 @@ namespace Persona.Configuration
                     .AddHttpClient();
 
             services.AddTransient<IFruitAppService, FruitAppService>();
+            services.AddTransient<ICartAppService, CartAppService>();
 
             return services;
         }
@@ -38,8 +39,8 @@ namespace Persona.Configuration
             {
                 mc.AddProfile(new DomainToViewModelMapping());
                 mc.AddProfile(new ViewModelToDomainMapping());
-                mc.AddProfile(new Fruit.Application.AutoMapper.Sell.DomainToViewModelMapping());
-                mc.AddProfile(new Fruit.Application.AutoMapper.Sell.ViewModelToDomainMapping());
+                mc.AddProfile(new Fruit.Application.AutoMapper.Cart.DomainToViewModelMapping());
+                mc.AddProfile(new Fruit.Application.AutoMapper.Cart.ViewModelToDomainMapping());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
@@ -54,7 +55,7 @@ namespace Persona.Configuration
             services.AddTransient<IUnitOfWorkTransaction, UnitOfWork<FruitShoppingDbContext>>();
             services.AddTransient<IFruitInventoryRepository, FruitInventoryRepository>();
             services.AddTransient<IFruitRepository, FruitRepository>();
-            services.AddTransient<ISellRepository, SellRepository>();
+            services.AddTransient<ICartRepository, CartRepository>();
 
             return services;
         }
