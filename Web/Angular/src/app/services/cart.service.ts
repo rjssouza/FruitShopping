@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { CartItem } from '../models/cart-item';
 import { cartUrl } from '../config/api';
-import { Fruit } from '../models/fruit';
+import { FruitTableViewModel } from '../models/fruit-table-view-model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class CartService {
     return this.http.get<CartItem[]>(cartUrl);
   }
 
-  addProductToCart(product: Fruit): Observable<any> {
+  addProductToCart(product: FruitTableViewModel): Observable<any> {
     return this.http.post(cartUrl, { product });
   }
 }

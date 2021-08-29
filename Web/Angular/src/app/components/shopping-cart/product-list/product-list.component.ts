@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FruitService } from 'src/app/services/fruit.service'
-import { Fruit } from 'src/app/models/fruit';
+import {FruitTableViewModel} from 'src/app/models/fruit-table-view-model'
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +10,7 @@ import { Fruit } from 'src/app/models/fruit';
 })
 export class ProductListComponent implements OnInit {
 
-  fruitList: Fruit[] = []
+  fruitList: FruitTableViewModel[] = []
 
   constructor(
     private fruitService: FruitService,

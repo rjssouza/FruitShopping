@@ -1,9 +1,9 @@
-import {Fruit} from './fruit';
+import {FruitTableViewModel} from './fruit-table-view-model';
 
 export class FruitListViewModel {
     id: string;
     userId: string;
-    fruitList: Fruit[];
+    fruitList: FruitTableViewModel[];
 
     constructor() {
     }

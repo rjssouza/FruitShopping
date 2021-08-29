@@ -100,7 +100,8 @@ namespace Security.Configuration
             .AddInMemoryApiResources(Config.Apis)
             .AddInMemoryApiScopes(Config.ApiScope)
             .AddInMemoryClients(Config.Clients)
-            .AddAspNetIdentity<ApplicationUser>();
+            .AddAspNetIdentity<ApplicationUser>()
+            .AddProfileService<ProfileService>();
 
             return services;
         }

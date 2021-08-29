@@ -13,6 +13,7 @@ using Persona.Configuration;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace FruitApi
 {
@@ -28,6 +29,8 @@ namespace FruitApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("Devlopment");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -48,7 +51,6 @@ namespace FruitApi
 
             app.UseRouting();
 
-
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -64,6 +66,14 @@ namespace FruitApi
         {
             SecureApi(services);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Devlopment",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddFruitShopping();
 
             services.AddControllers();
@@ -73,7 +83,7 @@ namespace FruitApi
                 options.Filters.Add(typeof(ExceptionFilter));
             }).AddJsonOptions(options =>
             {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.Converters.Add(new JsonConverterByteArrayGlobal());
             });
 
