@@ -2,7 +2,7 @@
 using Security.Application.ViewModels.Account;
 using Security.Domain.Entities;
 
-namespace STI.Application.AutoMapper.Account
+namespace Security.Application.AutoMapper.Account
 {
     internal class DomainToViewModelMapping : Profile
     {

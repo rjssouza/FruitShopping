@@ -4,16 +4,15 @@ using Core.Domain.Interfaces.Validations;
 
 namespace Core.Domain.Services
 {
-    public abstract class EntityValidationService<TKey, TEntity, TEntityRepository, TEntityValidation, TUnitOfWork> :
-        EntityService<TKey, TEntity, TEntityRepository, TUnitOfWork>
+    public abstract class EntityValidationService<TKey, TEntity, TEntityRepository, TEntityValidation> :
+        EntityService<TKey, TEntity, TEntityRepository>
         where TEntityRepository : IEntityRepository<TKey, TEntity>
         where TEntityValidation : IEntityValidation<TEntity>
-        where TUnitOfWork : IUnitOfWork
         where TEntity : Entity<TEntity>
     {
         protected readonly TEntityValidation _entityValidation;
 
-        public EntityValidationService(TEntityValidation entityValidation, TUnitOfWork unityOfWork)
+        public EntityValidationService(TEntityValidation entityValidation, IUnitOfWork unityOfWork)
             : base(unityOfWork)
         {
             this._entityValidation = entityValidation;

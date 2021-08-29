@@ -3,12 +3,11 @@ using System;
 
 namespace Core.Domain.Services
 {
-    public abstract class UnitService<TUnitOfWork> : Service
-        where TUnitOfWork : IUnitOfWork
+    public abstract class UnitService : Service
     {
-        protected TUnitOfWork _unitOfWork;
+        protected IUnitOfWork _unitOfWork;
 
-        public UnitService(TUnitOfWork unitOfWork)
+        public UnitService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
         }

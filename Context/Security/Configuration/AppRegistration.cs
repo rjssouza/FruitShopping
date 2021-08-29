@@ -4,6 +4,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Application;
+using Security.Application.AutoMapper.Account;
 using Security.Application.Interfaces.AppServices;
 using Security.Data.Context;
 using Security.Data.Repositories;
@@ -11,7 +12,6 @@ using Security.Domain.Entities;
 using Security.Domain.Interfaces.Repositories;
 using Security.Domain.Interfaces.Services;
 using Security.Domain.Services;
-using STI.Application.AutoMapper.Account;
 
 namespace Security.Configuration
 {

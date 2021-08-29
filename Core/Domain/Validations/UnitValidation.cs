@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace Core.Domain.Validations
 {
-    public abstract class UnitValidation<TUnitOfWork> : Validation
-        where TUnitOfWork : IUnitOfWork
+    public abstract class UnitValidation : Validation
     {
-        protected TUnitOfWork _unitOfWork;
+        protected IUnitOfWork _unitOfWork;
 
-        public UnitValidation(TUnitOfWork unitOfWork)
+        public UnitValidation(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
             this.Errors = new List<string>();

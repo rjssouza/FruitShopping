@@ -4,11 +4,10 @@ using Core.Domain.Interfaces.Validations;
 
 namespace Core.Domain.Validations
 {
-    public abstract class EntityValidation<TEntity, TUnitOfWork> : UnitValidation<TUnitOfWork>, IEntityValidation<TEntity>
-        where TUnitOfWork : IUnitOfWork
+    public abstract class EntityValidation<TEntity> : UnitValidation, IEntityValidation<TEntity>
         where TEntity : Entity<TEntity>
     {
-        public EntityValidation(TUnitOfWork unitOfWork)
+        public EntityValidation(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Domain.Entities
 {
-    public class Entity<TEntity> : ISpecificationObject, IEntityTypeConfiguration<TEntity>
+    public abstract class Entity<TEntity> : ISpecificationObject, IEntityTypeConfiguration<TEntity>
         where TEntity : Entity<TEntity>
     {
         [NotMapped]

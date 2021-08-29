@@ -4,12 +4,11 @@ using Core.Domain.Interfaces.Services;
 
 namespace Core.Domain.Services
 {
-    public abstract class EntityService<TKey, TEntity, TIEntityRepository, TUnitOfWork> : UnitService<TUnitOfWork>, IEntityService<TKey, TEntity>
+    public abstract class EntityService<TKey, TEntity, TIEntityRepository> : UnitService, IEntityService<TKey, TEntity>
         where TIEntityRepository : IEntityRepository<TKey, TEntity>
-        where TUnitOfWork : IUnitOfWork
         where TEntity : Entity<TEntity>
     {
-        public EntityService(TUnitOfWork unitOfWork)
+        public EntityService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

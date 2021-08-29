@@ -9,7 +9,6 @@ namespace Core.Data.Context
     {
         private const string DB_NAME = "estudodb";
         private static bool updateDatabase = true;
-
         private readonly IConfiguration _configuration;
 
         public CoreDbContext(IConfiguration configuration)
@@ -24,6 +23,8 @@ namespace Core.Data.Context
             }
         }
 
+        protected abstract string DbName { get; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -31,7 +32,7 @@ namespace Core.Data.Context
                 var connectionString = this._configuration[ConfigKeyConstants.STRING_CONNECTION];
                 optionsBuilder
                     .UseLazyLoadingProxies()
-                    .UseSqlServer(string.Format(connectionString, DB_NAME), x => x.MigrationsHistoryTable("__EFMigrationsHistory"));
+                    .UseSqlServer(string.Format(connectionString, this.DbName ?? DB_NAME), x => x.MigrationsHistoryTable("__EFMigrationsHistory"));
             }
 
             optionsBuilder.EnableSensitiveDataLogging();

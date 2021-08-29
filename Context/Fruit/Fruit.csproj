@@ -5,20 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\AppServices\" />
-    <Folder Include="Application\AutoMapper\" />
-    <Folder Include="Application\Interfaces\AppServices\" />
-    <Folder Include="Application\ViewModels\" />
-    <Folder Include="Data\Context\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Data\Repositories\" />
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Interfaces\Infrastructure\" />
-    <Folder Include="Domain\Interfaces\Repositories\" />
-    <Folder Include="Domain\Interfaces\Services\" />
-    <Folder Include="Domain\Interfaces\Validations\" />
-    <Folder Include="Domain\Services\" />
-    <Folder Include="Domain\Validations\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +15,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>
