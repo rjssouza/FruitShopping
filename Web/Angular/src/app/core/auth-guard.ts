@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): boolean {
-    debugger;
         return this.authService.hasValidAccessToken() && this.authService.hasValidIdToken();
   }
 }

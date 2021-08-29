@@ -5,6 +5,7 @@ using Fruit.Domain.Interfaces.Repositories;
 using Fruit.Domain.Interfaces.Services;
 using Fruit.Domain.Interfaces.Validations;
 using System;
+using System.Collections.Generic;
 
 namespace Fruit.Domain.Services
 {
@@ -13,6 +14,13 @@ namespace Fruit.Domain.Services
         public FruitService(IFruitValidation entityValidation, IUnitOfWork unityOfWork)
             : base(entityValidation, unityOfWork)
         {
+        }
+
+        public List<FruitEntity> GetFruitList()
+        {
+            // return _unitOfWork.GetRepository<IFruitRepository>().GetById();
+
+            throw new NotImplementedException();
         }
     }
 }

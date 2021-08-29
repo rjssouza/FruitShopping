@@ -114,7 +114,7 @@ namespace IdentityServerHost.Quickstart.UI
         {
             var result = await _authAppService.Register(vm);
             if (!result)
-                return View();
+                return View(vm);
 
             var loginResult = await _authAppService.Login(new LoginInputModel()
             {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Fruit.Application.ViewModels;
 using Fruit.Domain.Entities;
+using System.Linq;
 
 namespace Fruit.Application.AutoMapper
 {
@@ -15,6 +16,9 @@ namespace Fruit.Application.AutoMapper
 
             CreateMap<FruitInventoryEntity, FruitInventoryViewModel>();
             CreateMap<FruitPictureEntity, FruitPictureViewModel>();
+
+            CreateMap<FruitEntity, FruitTableItemViewModel>()
+                .ForMember(t => t.Picture, opt => opt.MapFrom(t => t.Pictures.Select(z => z.Content).FirstOrDefault()));
         }
     }
 }

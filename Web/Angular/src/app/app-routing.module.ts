@@ -7,7 +7,7 @@ import { ProtectedComponent } from './protected.component';
 
 
 const routes: Routes = [
-  { path: "protected", component: ProtectedComponent, canActivate: [ AuthGuard ] },
+  { path: "protected", component: ProtectedComponent, canActivate: [ AuthGuard ] }
 ];
 
 @NgModule({

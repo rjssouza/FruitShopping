@@ -4,6 +4,7 @@ using Core.Domain.Interfaces.Repositories;
 using Fruit.Application.Interfaces.AppServices;
 using Fruit.Application.ViewModels;
 using Fruit.Domain.Interfaces.Services;
+using System.Collections.Generic;
 
 namespace Fruit.Application.AppServices
 {
@@ -19,7 +20,12 @@ namespace Fruit.Application.AppServices
 
         public FruitListViewModel GetListViewModel()
         {
-            throw new System.NotImplementedException();
+            var fruitList = _fruitService.GetFruitList();
+
+            return new FruitListViewModel()
+            {
+                FruitList = this._mapper.Map<List<FruitTableItemViewModel>>(fruitList)
+            };
         }
 
         public void Register(FruitViewModel fruitViewModel)

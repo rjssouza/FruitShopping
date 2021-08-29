@@ -1,8 +1,10 @@
 ﻿using Fruit.Application.Interfaces.AppServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPhoto.Controllers
 {
+    [Authorize]
     [Route("api/fruit")]
     [ApiController]
     public class FruitController : ControllerBase

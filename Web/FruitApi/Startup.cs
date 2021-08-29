@@ -1,6 +1,8 @@
 using Core.Utils.Json;
 using FruitApi.Attribute;
 using FruitApi.Filter;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -46,6 +48,9 @@ namespace FruitApi
 
             app.UseRouting();
 
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -57,8 +62,12 @@ namespace FruitApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            SecureApi(services);
+
             services.AddFruitShopping();
+
             services.AddControllers();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
@@ -123,12 +132,27 @@ namespace FruitApi
                         Scheme = "Bearer"
                     });
 
-                //c.AddSecurityRequirement(security);
+                c.AddSecurityRequirement(security);
 
                 foreach (var name in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.SwaggerDoc.XML", SearchOption.AllDirectories))
                 {
                     c.IncludeXmlComments(name);
                 }
+            });
+
+        }
+
+        private void SecureApi(IServiceCollection services)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer("Bearer", o =>
+            {
+                o.Authority = $"https://localhost:5001";
+                o.Audience = "FruitApi";
+                o.RequireHttpsMetadata = true;
             });
         }
     }

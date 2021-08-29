@@ -98,6 +98,7 @@ namespace Security.Configuration
             .AddDeveloperSigningCredential()
             .AddInMemoryIdentityResources(Config.Ids)
             .AddInMemoryApiResources(Config.Apis)
+            .AddInMemoryApiScopes(Config.ApiScope)
             .AddInMemoryClients(Config.Clients)
             .AddAspNetIdentity<ApplicationUser>();
 

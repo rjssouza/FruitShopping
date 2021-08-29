@@ -9,7 +9,15 @@ namespace Security.Configuration
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[]
             {
-                new ApiResource("FrutasApi", "Api frutas")
+                new ApiResource("FruitApi")
+                {
+                    Scopes = new string[]{"FruitApi.full_access"}
+                }
+            };
+        public static IEnumerable<ApiScope> ApiScope =>
+            new ApiScope[]
+            {
+                new ApiScope("FruitApi.full_access")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -27,6 +35,7 @@ namespace Security.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
+                        "FruitApi.full_access"
                     },
                     RedirectUris = {$"http://localhost:4200"},
                     PostLogoutRedirectUris = {$"http://localhost:4200/"},
@@ -42,7 +51,7 @@ namespace Security.Configuration
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email(),
+                new IdentityResources.Email()
             };
     }
 }
