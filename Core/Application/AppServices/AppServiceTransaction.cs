@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Domain.Interfaces.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.Application.AppServices
 {
@@ -7,8 +8,8 @@ namespace Core.Application.AppServices
     {
         protected readonly IUnitOfWorkTransaction _coreUnitOfWorkTransaction;
 
-        public AppServiceTransaction(IUnitOfWorkTransaction coreUnitOfWorkTransaction, IMapper mapper)
-            : base(mapper)
+        public AppServiceTransaction(IUnitOfWorkTransaction coreUnitOfWorkTransaction, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+            : base(mapper, httpContextAccessor)
         {
             this._coreUnitOfWorkTransaction = coreUnitOfWorkTransaction;
         }

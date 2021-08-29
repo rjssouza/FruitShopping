@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fruit.Data.Migrations
 {
     [DbContext(typeof(FruitShoppingDbContext))]
-    [Migration("20210829170849_DefaultId")]
-    partial class DefaultId
+    [Migration("20210829235522_CorrecaoFkCartFruit_Key")]
+    partial class CorrecaoFkCartFruit_Key
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,11 +25,13 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Purchased")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
@@ -47,8 +49,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
@@ -63,6 +64,8 @@ namespace Fruit.Data.Migrations
 
                     b.HasIndex("CartId");
 
+                    b.HasIndex("FruitId");
+
                     b.ToTable("CartItem");
                 });
 
@@ -70,13 +73,12 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("InventoryId")
+                    b.Property<Guid?>("InventoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -90,7 +92,8 @@ namespace Fruit.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("InventoryId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[InventoryId] IS NOT NULL");
 
                     b.ToTable("Fruit");
                 });
@@ -99,10 +102,9 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FruitId")
+                    b.Property<Guid?>("FruitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -117,8 +119,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FruitId")
                         .HasColumnType("uniqueidentifier");
@@ -142,14 +143,14 @@ namespace Fruit.Data.Migrations
             modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartItemEntity", b =>
                 {
                     b.HasOne("Fruit.Domain.Entities.Cart.CartEntity", "Cart")
-                        .WithMany("Items")
+                        .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Fruit.Domain.Entities.FruitEntity", "Fruit")
                         .WithMany("Items")
-                        .HasForeignKey("CartId")
+                        .HasForeignKey("FruitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -162,9 +163,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.HasOne("Fruit.Domain.Entities.FruitInventoryEntity", "Inventory")
                         .WithOne("Fruit")
-                        .HasForeignKey("Fruit.Domain.Entities.FruitEntity", "InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Fruit.Domain.Entities.FruitEntity", "InventoryId");
 
                     b.Navigation("Inventory");
                 });
@@ -182,7 +181,7 @@ namespace Fruit.Data.Migrations
 
             modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartEntity", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("Fruit.Domain.Entities.FruitEntity", b =>

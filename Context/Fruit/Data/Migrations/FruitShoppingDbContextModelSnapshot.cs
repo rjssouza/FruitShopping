@@ -23,11 +23,13 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Purchased")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
@@ -45,8 +47,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
@@ -61,6 +62,8 @@ namespace Fruit.Data.Migrations
 
                     b.HasIndex("CartId");
 
+                    b.HasIndex("FruitId");
+
                     b.ToTable("CartItem");
                 });
 
@@ -68,8 +71,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -98,8 +100,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("FruitId")
                         .HasColumnType("uniqueidentifier");
@@ -116,8 +117,7 @@ namespace Fruit.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FruitId")
                         .HasColumnType("uniqueidentifier");
@@ -141,14 +141,14 @@ namespace Fruit.Data.Migrations
             modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartItemEntity", b =>
                 {
                     b.HasOne("Fruit.Domain.Entities.Cart.CartEntity", "Cart")
-                        .WithMany("Items")
+                        .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Fruit.Domain.Entities.FruitEntity", "Fruit")
                         .WithMany("Items")
-                        .HasForeignKey("CartId")
+                        .HasForeignKey("FruitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -179,7 +179,7 @@ namespace Fruit.Data.Migrations
 
             modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartEntity", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("Fruit.Domain.Entities.FruitEntity", b =>

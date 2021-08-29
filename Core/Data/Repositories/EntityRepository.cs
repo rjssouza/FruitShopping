@@ -19,6 +19,11 @@ namespace Core.Data.Repositories
             this._dbContext = dbContext;
         }
 
+        public void AddRange(IEnumerable<TEntity> objects)
+        {
+            _dbContext.Set<TEntity>().AddRange(objects);
+        }
+
         public virtual void Delete(TEntity entity)
         {
             this._dbContext.Remove<TEntity>(entity);
@@ -39,17 +44,17 @@ namespace Core.Data.Repositories
 
         public virtual TEntity GetById(Tkey id)
         {
-            return this._dbContext.Find<TEntity>(id);
+            return this._dbContext.Set<TEntity>().Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
-            this._dbContext.Add<TEntity>(entity);
+            this._dbContext.Set<TEntity>().Add(entity);
         }
 
         public virtual void Update(TEntity entity)
         {
-            this._dbContext.Update<TEntity>(entity);
+            this._dbContext.Set<TEntity>().Update(entity);
         }
 
         protected virtual void Dispose(bool disposing)

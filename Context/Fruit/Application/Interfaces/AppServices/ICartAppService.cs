@@ -8,7 +8,7 @@ namespace Fruit.Application.Interfaces.AppServices
     {
         CartViewModel GetCardViewModel();
 
-        CartViewModel AddItemToCart(FruitViewModel fruitViewModel);
+        CartViewModel AddItemToCart(FruitTableItemViewModel fruitViewModel);
 
         void Purchase(Guid sellId);
 

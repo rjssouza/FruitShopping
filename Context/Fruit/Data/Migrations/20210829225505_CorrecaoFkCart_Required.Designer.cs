@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fruit.Data.Migrations
 {
     [DbContext(typeof(FruitShoppingDbContext))]
-    [Migration("20210829171538_InventoryOptional")]
-    partial class InventoryOptional
+    [Migration("20210829225505_CorrecaoFkCart_Required")]
+    partial class CorrecaoFkCart_Required
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,9 @@ namespace Fruit.Data.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Purchased")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");

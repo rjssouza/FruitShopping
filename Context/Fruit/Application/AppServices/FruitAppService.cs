@@ -5,6 +5,7 @@ using Fruit.Application.Interfaces.AppServices;
 using Fruit.Application.ViewModels;
 using Fruit.Domain.Entities;
 using Fruit.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace Fruit.Application.AppServices
@@ -13,8 +14,8 @@ namespace Fruit.Application.AppServices
     {
         private readonly IFruitService _fruitService;
 
-        public FruitAppService(IUnitOfWorkTransaction coreUnitOfWorkTransaction, IMapper mapper, IFruitService fruitService)
-            : base(coreUnitOfWorkTransaction, mapper)
+        public FruitAppService(IUnitOfWorkTransaction coreUnitOfWorkTransaction, IMapper mapper, IFruitService fruitService, IHttpContextAccessor httpContextAccessor)
+            : base(coreUnitOfWorkTransaction, mapper, httpContextAccessor)
         {
             _fruitService = fruitService;
         }
@@ -32,8 +33,9 @@ namespace Fruit.Application.AppServices
         public void Register(FruitViewModel fruitViewModel)
         {
             var entity = this._mapper.Map<FruitEntity>(fruitViewModel);
-            
             _fruitService.Insert(entity);
+
+            _coreUnitOfWorkTransaction.SaveChanges();
         }
     }
 }

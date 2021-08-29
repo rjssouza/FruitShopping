@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CartItem } from '../models/cart-item';
+import { Cart } from '../models/cart';
 import { cartUrl } from '../config/api';
 import { FruitTableViewModel } from '../models/fruit-table-view-model';
 
@@ -15,11 +16,12 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  getViewModel(): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(cartUrl);
+  getViewModel(): Observable<Cart> {
+    return this.http.get<Cart>(cartUrl);
   }
 
-  addProductToCart(product: FruitTableViewModel): Observable<any> {
-    return this.http.post(cartUrl, { product });
+  addProductToCart(fruit: FruitTableViewModel): Observable<any> {
+    debugger;
+    return this.http.post(cartUrl, fruit);
   }
 }

@@ -1,3 +1,4 @@
+using Core.Utils;
 using Core.Utils.Json;
 using FruitApi.Attribute;
 using FruitApi.Filter;
@@ -5,6 +6,7 @@ using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -149,7 +151,6 @@ namespace FruitApi
                     c.IncludeXmlComments(name);
                 }
             });
-
         }
 
         private void SecureApi(IServiceCollection services)

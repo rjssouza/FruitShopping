@@ -25,7 +25,8 @@ namespace Persona.Configuration
             services.AddDataServices()
                     .AddInfrastructure()
                     .AddDomainServices()
-                    .AddHttpClient();
+                    .AddHttpClient()
+                    .AddHttpContextAccessor();
 
             services.AddTransient<IFruitAppService, FruitAppService>();
             services.AddTransient<ICartAppService, CartAppService>();

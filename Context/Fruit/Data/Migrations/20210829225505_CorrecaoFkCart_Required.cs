@@ -2,7 +2,7 @@
 
 namespace Fruit.Data.Migrations
 {
-    public partial class LoadFruitBase : Migration
+    public partial class CorrecaoFkCart_Required : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

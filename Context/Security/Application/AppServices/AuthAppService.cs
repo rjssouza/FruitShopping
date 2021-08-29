@@ -4,6 +4,7 @@ using Core.Domain.Interfaces.Repositories;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Security.Application.Interfaces.AppServices;
 using Security.Application.ViewModels.Account;
 using Security.Domain.Entities;
@@ -28,8 +29,9 @@ namespace Security.Application
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events)
-            : base(coreUnitOfWorkTransaction, mapper)
+            IEventService events, 
+            IHttpContextAccessor httpContextAccessor)
+            : base(coreUnitOfWorkTransaction, mapper, httpContextAccessor)
         {
             _applicationUserService = applicationUserService;
             _interaction = interaction;

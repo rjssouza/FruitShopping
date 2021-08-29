@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fruit.Data.Migrations
 {
     [DbContext(typeof(FruitShoppingDbContext))]
-    [Migration("20210829164543_AlterTableFruitPicture")]
-    partial class AlterTableFruitPicture
+    [Migration("20210829231719_CorrecaoFkCart_Key")]
+    partial class CorrecaoFkCart_Key
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,52 @@ namespace Fruit.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Purchased")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartItemEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FruitId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.ToTable("CartItem");
+                });
 
             modelBuilder.Entity("Fruit.Domain.Entities.FruitEntity", b =>
                 {
@@ -30,7 +76,7 @@ namespace Fruit.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("InventoryId")
+                    b.Property<Guid?>("InventoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -44,7 +90,8 @@ namespace Fruit.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("InventoryId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[InventoryId] IS NOT NULL");
 
                     b.ToTable("Fruit");
                 });
@@ -55,7 +102,7 @@ namespace Fruit.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FruitId")
+                    b.Property<Guid?>("FruitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -91,56 +138,30 @@ namespace Fruit.Data.Migrations
                     b.ToTable("FruitPicture");
                 });
 
-            modelBuilder.Entity("Fruit.Domain.Entities.Sell.CartEntity", b =>
+            modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartItemEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("Fruit.Domain.Entities.Cart.CartEntity", "Cart")
+                        .WithMany("Items")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.HasOne("Fruit.Domain.Entities.FruitEntity", "Fruit")
+                        .WithMany("Items")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.Navigation("Cart");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cart");
-                });
-
-            modelBuilder.Entity("Fruit.Domain.Entities.Sell.CartItemEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FruitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.ToTable("CartItem");
+                    b.Navigation("Fruit");
                 });
 
             modelBuilder.Entity("Fruit.Domain.Entities.FruitEntity", b =>
                 {
                     b.HasOne("Fruit.Domain.Entities.FruitInventoryEntity", "Inventory")
                         .WithOne("Fruit")
-                        .HasForeignKey("Fruit.Domain.Entities.FruitEntity", "InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Fruit.Domain.Entities.FruitEntity", "InventoryId");
 
                     b.Navigation("Inventory");
                 });
@@ -156,40 +177,21 @@ namespace Fruit.Data.Migrations
                     b.Navigation("Fruit");
                 });
 
-            modelBuilder.Entity("Fruit.Domain.Entities.Sell.CartItemEntity", b =>
+            modelBuilder.Entity("Fruit.Domain.Entities.Cart.CartEntity", b =>
                 {
-                    b.HasOne("Fruit.Domain.Entities.FruitEntity", "Fruit")
-                        .WithMany("SellItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Fruit.Domain.Entities.Sell.CartEntity", "Cart")
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Fruit");
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Fruit.Domain.Entities.FruitEntity", b =>
                 {
-                    b.Navigation("Pictures");
+                    b.Navigation("Items");
 
-                    b.Navigation("SellItems");
+                    b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("Fruit.Domain.Entities.FruitInventoryEntity", b =>
                 {
                     b.Navigation("Fruit");
-                });
-
-            modelBuilder.Entity("Fruit.Domain.Entities.Sell.CartEntity", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

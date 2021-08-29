@@ -3,6 +3,7 @@ using Fruit.Application.ViewModels;
 using Fruit.Application.ViewModels.Cart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ApiPhoto.Controllers
 {
@@ -18,6 +19,15 @@ namespace ApiPhoto.Controllers
             _cartAppService = cartAppService;
         }
 
+        [HttpDelete("{fruitId}")]
+        [ProducesResponseType(200, Type = typeof(FruitViewModel))]
+        public ActionResult Delete(Guid fruitId)
+        {
+            _cartAppService.RemoveItemFromCard(fruitId);
+
+            return Ok();
+        }
+
         [HttpGet()]
         [ProducesResponseType(200, Type = typeof(CartViewModel))]
         public ActionResult Get()
@@ -28,12 +38,21 @@ namespace ApiPhoto.Controllers
         }
 
         [HttpPost()]
-        [ProducesResponseType(200, Type = typeof(FruitViewModel))]
-        public ActionResult Post(FruitViewModel fruitViewModel)
+        [ProducesResponseType(200, Type = typeof(CartViewModel))]
+        public ActionResult Post(FruitTableItemViewModel fruitViewModel)
         {
             var vm = _cartAppService.AddItemToCart(fruitViewModel);
 
             return Ok(vm);
+        }
+
+        [HttpPut("{cartId}")]
+        [ProducesResponseType(200)]
+        public ActionResult Put(Guid cartId)
+        {
+            _cartAppService.Purchase(cartId);
+
+            return Ok();
         }
     }
 }

@@ -1,6 +1,10 @@
-﻿namespace Core.Utils
+﻿using Microsoft.AspNetCore.Http;
+using System;
+
+namespace Core.Utils
 {
-    public static class UserFactory
+    public class UserFactory
     {
+        public Func<string> _getUser;
     }
 }

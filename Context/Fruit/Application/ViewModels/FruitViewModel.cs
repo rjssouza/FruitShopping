@@ -6,6 +6,7 @@ namespace Fruit.Application.ViewModels
 {
     public class FruitViewModel
     {
+        public Guid Id { get; set; }
         public string Description { get; private set; }
         public virtual FruitInventoryViewModel Inventory { get; private set; }
         public Guid InventoryId { get; set; }

@@ -13,8 +13,7 @@ namespace Core.Domain.Entities
         [NotMapped]
         public List<string> Errors { get; private set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; private set; }
+        public Guid Id { get; protected set; }
 
         public Entity()
         {
@@ -24,7 +23,6 @@ namespace Core.Domain.Entities
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).HasDefaultValueSql("NEWID()");
         }
 
         public bool IsValid()
