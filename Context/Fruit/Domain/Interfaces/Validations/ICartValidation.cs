@@ -1,5 +1,5 @@
 ﻿using Core.Domain.Interfaces.Validations;
-using Fruit.Domain.Entities.Sell;
+using Fruit.Domain.Entities.Cart;
 
 namespace Fruit.Domain.Interfaces.Validations
 {

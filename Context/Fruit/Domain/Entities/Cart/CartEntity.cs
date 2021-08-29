@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-namespace Fruit.Domain.Entities.Sell
+namespace Fruit.Domain.Entities.Cart
 {
     internal class CartEntity : Entity<CartEntity>
     {

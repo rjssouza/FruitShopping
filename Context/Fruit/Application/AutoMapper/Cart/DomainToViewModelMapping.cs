@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Fruit.Application.ViewModels.Sell;
-using Fruit.Domain.Entities.Sell;
+using Fruit.Application.ViewModels.Cart;
+using Fruit.Domain.Entities.Cart;
 
-namespace Fruit.Application.AutoMapper.Sell
+namespace Fruit.Application.AutoMapper.Cart
 {
     internal class DomainToViewModelMapping : Profile
     {

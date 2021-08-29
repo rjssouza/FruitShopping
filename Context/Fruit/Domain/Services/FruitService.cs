@@ -6,6 +6,7 @@ using Fruit.Domain.Interfaces.Services;
 using Fruit.Domain.Interfaces.Validations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fruit.Domain.Services
 {
@@ -18,9 +19,9 @@ namespace Fruit.Domain.Services
 
         public List<FruitEntity> GetFruitList()
         {
-            // return _unitOfWork.GetRepository<IFruitRepository>().GetById();
+            var fruitList = _unitOfWork.GetRepository<IFruitRepository>().GetAll();
 
-            throw new NotImplementedException();
+            return fruitList.ToList();
         }
     }
 }

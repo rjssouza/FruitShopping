@@ -1,5 +1,5 @@
 ﻿using Core.Domain.Interfaces.Services;
-using Fruit.Domain.Entities.Sell;
+using Fruit.Domain.Entities.Cart;
 using System;
 
 namespace Fruit.Domain.Interfaces.Services

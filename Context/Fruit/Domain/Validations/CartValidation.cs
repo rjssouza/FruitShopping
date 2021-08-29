@@ -1,6 +1,6 @@
 ﻿using Core.Domain.Interfaces.Repositories;
 using Core.Domain.Validations;
-using Fruit.Domain.Entities.Sell;
+using Fruit.Domain.Entities.Cart;
 using Fruit.Domain.Interfaces.Validations;
 
 namespace Fruit.Domain.Validations

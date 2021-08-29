@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fruit.Application.ViewModels.Sell
+namespace Fruit.Application.ViewModels.Cart
 {
     public class CartItemViewModel
     {

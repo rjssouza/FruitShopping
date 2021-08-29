@@ -5,7 +5,7 @@ using System;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-namespace Fruit.Domain.Entities.Sell
+namespace Fruit.Domain.Entities.Cart
 {
     internal class CartItemEntity : Entity<CartItemEntity>
     {
@@ -25,7 +25,7 @@ namespace Fruit.Domain.Entities.Sell
                    .WithMany(item => item.Items)
                    .HasForeignKey(item => item.CartId);
             builder.HasOne(t => t.Fruit)
-                   .WithMany(item => item.SellItems)
+                   .WithMany(item => item.Items)
                    .HasForeignKey(t => t.CartId);
         }
     }

@@ -2,6 +2,8 @@
 using Core.Domain.Entities;
 using Core.Domain.Interfaces.Repositories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Data.Repositories
 {
@@ -26,6 +28,13 @@ namespace Core.Data.Repositories
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        public virtual IEnumerable<TEntity> GetAll(Func<TEntity, bool> selector = null)
+        {
+            var result = selector == null ? this._dbContext.Set<TEntity>() : this._dbContext.Set<TEntity>().Where(selector);
+
+            return result;
         }
 
         public virtual TEntity GetById(Tkey id)
