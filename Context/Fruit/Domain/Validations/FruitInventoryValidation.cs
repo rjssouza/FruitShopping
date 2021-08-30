@@ -21,7 +21,7 @@ namespace Fruit.Domain.Validations
 
         private void Quantity_QuantityMustBeSuperiorThanZero(FruitInventoryEntity entity)
         {
-            var message = "";
+            var message = "Quantidade do inventorio deve ser maior que zero";
             if (entity.Quantity <= 0)
                 this.AddError(message);
         }

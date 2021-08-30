@@ -60,9 +60,20 @@ namespace Fruit.Application.AppServices
 
         public void RemoveItemFromCard(Guid fruitId)
         {
+            var fruit = _fruitService.GetById(fruitId);
             var purchasingCart = GetCartForUser();
+            var quantity = purchasingCart.Items.Where(t => t.FruitId == fruitId).Count();
             purchasingCart.Items.RemoveAll(t => t.FruitId == fruitId);
-            _cartService.Update(purchasingCart);
+            if (purchasingCart.Items.Count == 0)
+            {
+                _cartService.Delete(purchasingCart);
+                AddFruitInventory(fruit, quantity);
+            }
+            else
+            {
+                _cartService.Update(purchasingCart);
+                AddFruitInventory(fruit);
+            }
 
             SaveChanges();
         }
@@ -86,8 +97,21 @@ namespace Fruit.Application.AppServices
         private void SubtractFruitInventory(FruitEntity fruit)
         {
             fruit.Inventory.Quantity--;
+            if (fruit.Inventory.Quantity == 0)
+                _fruitService.Delete(fruit);
 
             _fruitService.Update(fruit);
         }
+
+        private void AddFruitInventory(FruitEntity fruit, int quantity = 0)
+        {
+            if (quantity <= 0)
+                fruit.Inventory.Quantity++;
+            else
+                fruit.Inventory.Quantity += quantity;
+
+            _fruitService.Update(fruit);
+        }
+
     }
 }

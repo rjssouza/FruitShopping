@@ -23,4 +23,8 @@ export class CartService {
   addProductToCart(fruit: FruitTableViewModel): Observable<any> {
     return this.http.post(cartUrl, fruit);
   }
+
+  removeProductFromCart(cartItem: CartItem): Observable<any> {
+    return this.http.delete(cartUrl +'/'+cartItem.fruitId );
+  }
 }

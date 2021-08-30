@@ -65,7 +65,7 @@ namespace FruitApi.Filter
         {
             var codigoErro = HttpStatusCode.InternalServerError;
 
-            if (excecao is ApiException excecao1)
+            if (excecao is ValidationException excecao1)
             {
                 codigoErro = excecao1.HttpStatusCode;
             }

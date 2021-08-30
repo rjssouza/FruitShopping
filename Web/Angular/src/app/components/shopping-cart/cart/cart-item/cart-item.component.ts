@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service'
 
 @Component({
   selector: 'app-cart-item',
@@ -9,9 +10,17 @@ export class CartItemComponent implements OnInit {
 
   @Input() cartItem: any
 
-  constructor() { }
+  constructor(private cartService: CartService,
+    ) { }
 
   ngOnInit() {
+  }
+
+  public removeItem(){
+    this.cartService.removeProductFromCart(this.cartItem).subscribe((cartView) => {
+      //this.router.navigate(['']);
+      window.location.reload();
+    });
   }
 
 }

@@ -38,7 +38,7 @@ namespace Fruit.Domain.Validations
 
         private void Description_DescriptionIsRequired(FruitEntity fruitEntity)
         {
-            var message = "";
+            var message = "Descrição deve ser informada";
 
             if (string.IsNullOrEmpty(fruitEntity.Description))
                 AddError(message);
@@ -58,7 +58,7 @@ namespace Fruit.Domain.Validations
 
         private void Name_NameIsRequired(FruitEntity fruitEntity)
         {
-            var message = "";
+            var message = "Nome é obrigatório";
 
             if (string.IsNullOrEmpty(fruitEntity.Name))
                 AddError(message);
@@ -66,7 +66,7 @@ namespace Fruit.Domain.Validations
 
         private void Price_PriceMustBeSuperiorThanZero(FruitEntity fruitEntity)
         {
-            var message = "";
+            var message = "Preço deve ser informado";
             if (fruitEntity.Price <= 0)
                 AddError(message);
         }

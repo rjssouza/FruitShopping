@@ -33,7 +33,7 @@ namespace Fruit.Domain.Validations
 
         private void Items_ItemsMustBeInformed(CartEntity entity)
         {
-            var message = "";
+            var message = "Itens de compra devem ser informados";
 
             if (entity.Items.Count <= 0)
                 this.AddError(message);
@@ -41,7 +41,7 @@ namespace Fruit.Domain.Validations
 
         private void Total_TotalMustBeSuperiorThanZero(CartEntity entity)
         {
-            var message = "";
+            var message = "Total deve ser maior que zero";
 
             if (entity.Total <= 0)
                 this.AddError(message);
@@ -49,7 +49,7 @@ namespace Fruit.Domain.Validations
 
         private void UserId_UserIsRequired(CartEntity entity)
         {
-            var message = "";
+            var message = "Identificador do usuário deve ser informado";
 
             if (string.IsNullOrEmpty(entity.UserId))
                 this.AddError(message);
