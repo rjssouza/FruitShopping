@@ -27,6 +27,9 @@ export class ProductItemComponent implements OnInit {
 
   handleSubscription() {
     this.msg.getMsg().subscribe((product: FruitTableViewModel) => {
+      if(product.id != this.productItem.id)
+        return;
+
       this.fruitService.getById(product.id).subscribe((fruitTableViewModel) => {
         debugger;
         this.productItem = fruitTableViewModel;

@@ -4,6 +4,7 @@ using Core.Domain.Interfaces.Repositories;
 using Fruit.Application.Interfaces.AppServices;
 using Fruit.Application.ViewModels;
 using Fruit.Application.ViewModels.Cart;
+using Fruit.Domain.Entities;
 using Fruit.Domain.Entities.Cart;
 using Fruit.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
@@ -31,11 +32,8 @@ namespace Fruit.Application.AppServices
             var fruit = _fruitService.GetById(fruitViewModel.Id);
             var purchasingCart = GetCartForUser() ?? new CartEntity(this.CurrentUserId);
             purchasingCart.AddItem(new CartItemEntity(fruit, purchasingCart));
-
-            if (purchasingCart.Id == Guid.Empty)
-                _cartService.Insert(purchasingCart);
-            else
-                _cartService.Update(purchasingCart);
+            SaveCartItems(purchasingCart);
+            SubtractFruitInventory(fruit);
 
             SaveChanges();
             var result = this._mapper.Map<CartViewModel>(purchasingCart);
@@ -75,6 +73,21 @@ namespace Fruit.Application.AppServices
                                              .FirstOrDefault();
 
             return purchasingCart;
+        }
+
+        private void SaveCartItems(CartEntity purchasingCart)
+        {
+            if (purchasingCart.Id == Guid.Empty)
+                _cartService.Insert(purchasingCart);
+            else
+                _cartService.Update(purchasingCart);
+        }
+
+        private void SubtractFruitInventory(FruitEntity fruit)
+        {
+            fruit.Inventory.Quantity--;
+
+            _fruitService.Update(fruit);
         }
     }
 }

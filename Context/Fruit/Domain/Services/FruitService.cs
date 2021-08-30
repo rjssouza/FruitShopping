@@ -19,7 +19,10 @@ namespace Fruit.Domain.Services
 
         public List<FruitEntity> GetFruitList()
         {
-            var fruitList = _unitOfWork.GetRepository<IFruitRepository>().GetAll();
+            var fruitList = _unitOfWork.GetRepository<IFruitRepository>()
+                .GetAll()
+                .OrderBy(t => t.Name)
+                .ThenBy(t => t.Price);
 
             return fruitList.ToList();
         }
