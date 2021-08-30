@@ -71,7 +71,7 @@ namespace Fruit.Application.AppServices
 
         private CartEntity GetCartForUser()
         {
-            var purchasingCart = _cartService.GetAll(t => t.Purchased && t.UserId == CurrentUserId)
+            var purchasingCart = _cartService.GetAll(t => t.Purchased == false && t.UserId == CurrentUserId)
                                              .FirstOrDefault();
 
             return purchasingCart;

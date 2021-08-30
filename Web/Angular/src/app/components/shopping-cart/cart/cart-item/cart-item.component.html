@@ -1,5 +1,5 @@
 <div class="cart-item">
-  <span>{{ cartItem.productName }}</span> x
-  <span>{{ cartItem.qty }}</span>:
-  <strong>{{ (cartItem.qty * cartItem.price) | currency:'INR' }}</strong>
+  <span>{{ cartItem.fruitName }}</span> x
+  <span>{{ cartItem.quantity }}</span>:
+  <strong>{{ cartItem.price | currency:'R$' }}</strong>
 </div>

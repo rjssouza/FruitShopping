@@ -21,7 +21,6 @@ export class CartService {
   }
 
   addProductToCart(fruit: FruitTableViewModel): Observable<any> {
-    debugger;
     return this.http.post(cartUrl, fruit);
   }
 }

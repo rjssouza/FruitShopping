@@ -37,6 +37,7 @@ namespace ApiPhoto.Controllers
             return Ok(vm);
         }
 
+
         [HttpPost()]
         [ProducesResponseType(200, Type = typeof(CartViewModel))]
         public ActionResult Post(FruitTableItemViewModel fruitViewModel)

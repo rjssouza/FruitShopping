@@ -1,6 +1,7 @@
 ﻿using Fruit.Application.Interfaces.AppServices;
 using Fruit.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ApiPhoto.Controllers
 {
@@ -22,6 +23,15 @@ namespace ApiPhoto.Controllers
             var fruitListViewModel = _fruitAppService.GetListViewModel();
 
             return Ok(fruitListViewModel);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(FruitTableItemViewModel))]
+        public ActionResult Get(Guid id)
+        {
+            var vm = _fruitAppService.GetById(id);
+
+            return Ok(vm);
         }
     }
 }

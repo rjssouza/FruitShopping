@@ -6,6 +6,7 @@ using Fruit.Application.ViewModels;
 using Fruit.Domain.Entities;
 using Fruit.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 
 namespace Fruit.Application.AppServices
@@ -18,6 +19,14 @@ namespace Fruit.Application.AppServices
             : base(coreUnitOfWorkTransaction, mapper, httpContextAccessor)
         {
             _fruitService = fruitService;
+        }
+
+        public FruitTableItemViewModel GetById(Guid id)
+        {
+            var fruit = _fruitService.GetById(id);
+            var result = this._mapper.Map<FruitTableItemViewModel>(fruit);
+
+            return result;
         }
 
         public FruitListViewModel GetListViewModel()

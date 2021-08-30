@@ -35,6 +35,7 @@ export class CartComponent implements OnInit {
     this.cartService.getViewModel().subscribe((cartViewModel: Cart) => {
       if (!cartViewModel)
         return;
+      
       this.cartItems = cartViewModel.items;
       this.calcCartTotal();
     })

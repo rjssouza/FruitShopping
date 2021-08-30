@@ -10,7 +10,9 @@ namespace Fruit.Application.AutoMapper.Cart
         {
             CreateMap<CartEntity, CartViewModel>()
                 .ForPath(t => t.Items, opt => opt.MapFrom(t => t.Items));
-            CreateMap<CartItemEntity, CartItemViewModel>();
+            CreateMap<CartItemEntity, CartItemViewModel>()
+                .ForMember(t => t.Price, opt => opt.MapFrom(t => t.Fruit.Price * t.Quantity))
+                .ForMember(t => t.FruitName, opt => opt.MapFrom(t => t.Fruit.Name));
         }
     }
 }
